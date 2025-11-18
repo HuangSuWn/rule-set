@@ -12,9 +12,6 @@ from config import Config
 from collections import defaultdict
 import tempfile
 import shutil
-import requests
-import pandas as pd
-
 
 config = Config()
 
@@ -78,6 +75,10 @@ class RuleParser:
             if not os.path.exists(srs_file_path):
                 logging.error(f"转换失败，没有找到生成的 SRS 文件: {srs_file_path}")
                 return None
+
+            # 读取 AdGuard 规则并转换为 Surge/Shadowrocket
+            # convert_adguard_to_surge(adguard_file_path, rule_set_name)
+            # convert_adguard_to_clash(adguard_file_path, rule_set_name)
 
             # 清理临时文件
             os.remove(adguard_file_path)
@@ -271,7 +272,6 @@ class RuleParser:
     def generate_json_file(self, links, output_file, rule_set_name):
         """
         生成合并后的 JSON 文件并返回处理统计信息。
-        在输出为 geoip 时，会从最终结果中移除 domain 字段。
         """
         # 去重链接
         unique_links = list(set(links))
@@ -281,53 +281,28 @@ class RuleParser:
             json_file = self.parse_link_file_to_json(link)
             json_file_list.append(json_file)
 
-        # helper: 是否需要在最终结果中移除 domain 字段（判断 rule_set_name 或 output_file）
-        is_geoip_output = ('geoip' in rule_set_name.lower()) or ('geoip' in os.path.basename(output_file).lower())
-
         # 如果只有一个 JSON 文件，直接保存，不调用 merge_json
         if len(json_file_list) == 1 and config.trust_upstream:
             single_file_stats = json_file_list[0]
             final_rules = single_file_stats
 
-            # 如果是 geoip，则删除 domain 条目（如果存在）
-            if is_geoip_output:
-                if "rules" in final_rules and isinstance(final_rules["rules"], list):
-                    final_rules["rules"] = [r for r in final_rules["rules"] if not (isinstance(r, dict) and "domain" in r)]
             # 统计信息
-            # 统计时需要从 final_rules 读取实际的各类长度
-            domain_count = 0
-            domain_suffix_count = 0
-            ip_cidr_count = 0
-            process_name_count = 0
-            domain_regex_count = 0
+            domain_count = len(single_file_stats.get("domain", []))
+            domain_suffix_count = len(single_file_stats.get("domain_suffix", []))
+            ip_cidr_count = len(single_file_stats.get("ip_cidr", []))
+            process_name_count = len(single_file_stats.get("process_name", []))
+            domain_regex_count = len(single_file_stats.get("domain_regex", []))
 
-            for rule in final_rules.get("rules", []):
-                if not isinstance(rule, dict):
-                    continue
-                if "domain" in rule:
-                    domain_count += len(rule.get("domain", []))
-                if "domain_suffix" in rule:
-                    domain_suffix_count += len(rule.get("domain_suffix", []))
-                if "ip_cidr" in rule:
-                    ip_cidr_count += len(rule.get("ip_cidr", []))
-                if "process_name" in rule:
-                    process_name_count += len(rule.get("process_name", []))
-                if "domain_regex" in rule:
-                    domain_regex_count += len(rule.get("domain_regex", []))
-
+            # 顶层信息
             statistics = {
                 "filtered_count": 0,
-                "total_rules": sum(
-                    len(values) if isinstance(values, list) else 1
-                    for r in final_rules.get("rules", [])
-                    for values in (r.values(),)
-                ) if final_rules.get("rules") else 0,
+                "total_rules": len(final_rules),
                 "domain_count": domain_count,
                 "domain_suffix_count": domain_suffix_count,
                 "ip_cidr_count": ip_cidr_count,
                 "process_name_count": process_name_count,
                 "domain_regex_count": domain_regex_count
-            }
+                }
 
             try:
                 with open(output_file, 'w', encoding='utf-8') as file:
@@ -338,49 +313,9 @@ class RuleParser:
 
             # 返回统计信息
             return statistics
+        # 否则调用 merge_json
         else:
-            # 否则调用 merge_json（merge_json 会写入 output_file）
-            stats = self.merge_json(json_file_list, output_file, rule_set_name=rule_set_name)
-
-            # 如果是 geoip 输出，需要从已经写好的文件中移除 domain 条目并调整统计
-            if is_geoip_output:
-                try:
-                    data = load_json(output_file)
-                    rules = data.get("rules", [])
-                    # 过滤掉包含 domain 键的规则项
-                    new_rules = [r for r in rules if not (isinstance(r, dict) and "domain" in r)]
-                    data["rules"] = new_rules
-                    # 覆写文件
-                    save_json(data, output_file)
-                    # 更新统计信息：把 domain_count 设为 0，total_rules 重新计算
-                    stats["domain_count"] = 0
-                    # 重新计算 total_rules（以 merged rules 中各集合长度为准）
-                    # 这里我们尽量基于文件内容做一个稳妥的统计
-                    total = 0
-                    domain_suffix_count = ip_cidr_count = process_name_count = domain_regex_count = 0
-                    for rule in new_rules:
-                        if not isinstance(rule, dict):
-                            continue
-                        for k, v in rule.items():
-                            if isinstance(v, list):
-                                total += len(v)
-                                if k == "domain_suffix":
-                                    domain_suffix_count += len(v)
-                                elif k == "ip_cidr":
-                                    ip_cidr_count += len(v)
-                                elif k == "process_name":
-                                    process_name_count += len(v)
-                                elif k == "domain_regex":
-                                    domain_regex_count += len(v)
-                    stats["total_rules"] = total
-                    stats["domain_suffix_count"] = domain_suffix_count
-                    stats["ip_cidr_count"] = ip_cidr_count
-                    stats["process_name_count"] = process_name_count
-                    stats["domain_regex_count"] = domain_regex_count
-                except Exception as e:
-                    logging.error(f"在 geoip 输出后处理 domain 移除时出错: {e}")
-
-            return stats
+            return self.merge_json(json_file_list, output_file, rule_set_name=rule_set_name)
 
     def merge_json(self, json_file_list, output_file, rule_set_name,
                    enable_trie_filtering=config.enable_trie_filtering):
@@ -440,7 +375,7 @@ class RuleParser:
         # 保存结果
         try:
             with open(output_file, 'w', encoding='utf-8') as file:
-                json.dump({"version": 4, "rules": final_rules}, file, ensure_ascii=False, indent=4)
+                json.dump({"version": 1, "rules": final_rules}, file, ensure_ascii=False, indent=4)
         except Exception as e:
             logging.error(f"保存 JSON 文件时出错: {e}")
 
@@ -516,13 +451,13 @@ class RuleParser:
                 df = pd.concat(dfs, ignore_index=True)
 
             logging.debug(f"生成的 DataFrame: {df.head()}")
-            #df = df[~df['pattern'].str.contains('IP-CIDR6')].reset_index(drop=True)
+            df = df[~df['pattern'].str.contains('IP-CIDR6')].reset_index(drop=True)
             df = df[~df['pattern'].str.contains('#')].reset_index(drop=True)
             df = df[df['pattern'].isin(config.map_dict.keys())].reset_index(drop=True)
             df = df.drop_duplicates().reset_index(drop=True)
             df['pattern'] = df['pattern'].replace(config.map_dict)
 
-            result_rules = {"version": 4, "rules": []}
+            result_rules = {"version": 1, "rules": []}
             domain_entries = []
             for pattern, addresses in df.groupby('pattern')['address'].apply(list).to_dict().items():
                 if pattern == 'domain_suffix':
@@ -644,8 +579,8 @@ class RuleParser:
 
 
     def main(self):
-        source_directory = "./source"
-        output_directory = "./rule"
+        source_directory = config.source_dir
+        output_directory = config.singbox_output_directory
 
         # 清空 output_directory
         if os.path.exists(output_directory):
@@ -671,6 +606,11 @@ class RuleParser:
             os.system(f"sing-box rule-set compile --output {srs_path} {json_file_path}")
             logging.debug(f"成功生成 SRS 文件 {srs_path}")
 
+        #### 调用工具函数 将 sing-box 规则转化为 Surge/Shadowrocket 规则
+        convert_json_to_surge(output_directory)
+        convert_json_to_clash(output_directory)
+
+        convert_yaml_to_mrs(config.clash_output_directory)
 
 if __name__ == "__main__":
     # 使用类的实例
