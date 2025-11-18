@@ -18,7 +18,7 @@
 如果有自定义规则列表需求，可 fork 本仓库，并在 `./source/xx.yaml` 添加上游规则集链接，系统将每日自动更新并构建规则。
 
 1. 在 `./source/xx.yaml` 添加规则集链接。  
-2. 按照 `geosite`、`geoip`、`process` 分类链接。  
+2. 按照 `geosite`、`geoip`、`geositeip`、`process` 分类链接。  
 3. 配置仓库权限，允许 Actions 读写权限。  
 4. 手动或自动触发 Actions，生成规则文件至 rule 文件夹。
 
