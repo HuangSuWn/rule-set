@@ -13,6 +13,8 @@ from collections import defaultdict
 import tempfile
 import shutil
 
+
+
 config = Config()
 
 
@@ -75,10 +77,6 @@ class RuleParser:
             if not os.path.exists(srs_file_path):
                 logging.error(f"转换失败，没有找到生成的 SRS 文件: {srs_file_path}")
                 return None
-
-            # 读取 AdGuard 规则并转换为 Surge/Shadowrocket
-            # convert_adguard_to_surge(adguard_file_path, rule_set_name)
-            # convert_adguard_to_clash(adguard_file_path, rule_set_name)
 
             # 清理临时文件
             os.remove(adguard_file_path)
@@ -162,6 +160,7 @@ class RuleParser:
         geosite_links = data.get('geosite', [])
         geoip_links = data.get('geoip', [])
         process_links = data.get('process', [])
+        geositeip_links = data.get('geositeip', [])
 
         # 定义生成文件的路径
         rule_set_name = os.path.basename(yaml_file).split('.')[0]
@@ -169,24 +168,30 @@ class RuleParser:
         geosite_file = os.path.join(output_directory, f"geosite-{rule_set_name}.json")
         geoip_file = os.path.join(output_directory, f"geoip-{rule_set_name}.json")
         process_file = os.path.join(output_directory, f"process-{rule_set_name}.json")
+        geositeip_file = os.path.join(output_directory, f"geositeip-{rule_set_name}.json")
 
         # 初始化结果存储
         final_results = []
 
         # 处理 geosite
         if geosite_links:
-            geosite_result = self.generate_json_file(geosite_links, geosite_file, rule_set_name, type='geosite')
+            geosite_result = self.generate_json_file(geosite_links, geosite_file, rule_set_name)
             final_results.append(("geosite", geosite_result))
 
         # 处理 geoip
         if geoip_links:
-            geoip_result = self.generate_json_file(geoip_links, geoip_file, rule_set_name, type='geoip')
+            geoip_result = self.generate_json_file(geoip_links, geoip_file, rule_set_name)
             final_results.append(("geoip", geoip_result))
 
         # 处理 process
         if process_links:
-            process_result = self.generate_json_file(process_links, process_file, rule_set_name, type='process')
+            process_result = self.generate_json_file(process_links, process_file, rule_set_name)
             final_results.append(("process", process_result))
+
+        # 处理 geositeip
+        if geositeip_links:
+            geositeip_result = self.generate_json_file(geositeip_links, geositeip_file, rule_set_name)
+            final_results.append(("geositeip", geositeip_result))
 
         # 输出最终处理结果
         logging.info(f"{rule_set_name} 规则整理完成:")
@@ -262,7 +267,7 @@ class RuleParser:
 
         return None
 
-    def generate_json_file(self, links, output_file, rule_set_name, type='geosite'):
+    def generate_json_file(self, links, output_file, rule_set_name):
         """
         生成合并后的 JSON 文件并返回处理统计信息。
         """
@@ -279,12 +284,6 @@ class RuleParser:
             single_file_stats = json_file_list[0]
             final_rules = single_file_stats
 
-            # 如果 type 不是 'process'，则去除 process_name 条目 (debug)
-            if type != 'process':
-                final_rules = [
-                    rule for rule in final_rules
-                    if 'process_name' not in rule
-                ]
             # 统计信息
             domain_count = len(single_file_stats.get("domain", []))
             domain_suffix_count = len(single_file_stats.get("domain_suffix", []))
@@ -301,21 +300,23 @@ class RuleParser:
                 "ip_cidr_count": ip_cidr_count,
                 "process_name_count": process_name_count,
                 "domain_regex_count": domain_regex_count
-            }
+                }
+
             try:
                 with open(output_file, 'w', encoding='utf-8') as file:
                     json.dump(final_rules, file, ensure_ascii=False, indent=4)
             except Exception as e:
                 logging.error(f"保存 JSON 文件时出错: {e}")
                 return {"error": str(e)}
+
             # 返回统计信息
             return statistics
         # 否则调用 merge_json
         else:
-            return self.merge_json(json_file_list, output_file, rule_set_name=rule_set_name, type=type)
+            return self.merge_json(json_file_list, output_file, rule_set_name=rule_set_name)
 
     def merge_json(self, json_file_list, output_file, rule_set_name,
-                   enable_trie_filtering=config.enable_trie_filtering, type='geosite'):
+                   enable_trie_filtering=config.enable_trie_filtering):
         """
         合并 JSON 文件并返回规则统计信息。
         """
@@ -368,13 +369,6 @@ class RuleParser:
             for category, values in merged_rules.items()
             if values
         ]
-
-        # 如果 type 不是 'process'，则去除 process_name 条目 (debug)
-        if type != 'process':
-            final_rules = [
-                rule for rule in final_rules
-                if 'process_name' not in rule
-            ]
 
         # 保存结果
         try:
@@ -455,7 +449,7 @@ class RuleParser:
                 df = pd.concat(dfs, ignore_index=True)
 
             logging.debug(f"生成的 DataFrame: {df.head()}")
-            df = df[~df['pattern'].str.contains('IP-CIDR6')].reset_index(drop=True)
+            #df = df[~df['pattern'].str.contains('IP-CIDR6')].reset_index(drop=True)
             df = df[~df['pattern'].str.contains('#')].reset_index(drop=True)
             df = df[df['pattern'].isin(config.map_dict.keys())].reset_index(drop=True)
             df = df.drop_duplicates().reset_index(drop=True)
@@ -512,7 +506,7 @@ class RuleParser:
 
         # 加载全体文件
         general_file_path = os.path.join(directory, general_files[0])
-        general_data = load_json(general_file_path).get("rules", [])
+        general_data = load_json(general_file_path).get("rules",[])
 
         # 如果同时有 @cn 和 @!cn 文件
         if cn_files and non_cn_files:
@@ -520,13 +514,13 @@ class RuleParser:
             cn_path = os.path.join(directory, cn_files[0])
             non_cn_path = os.path.join(directory, non_cn_files[0])
 
-            cn_data = load_json(cn_path).get("rules", [])
+            cn_data = load_json(cn_path).get("rules",[])
 
             # 从全体文件中剔除 cn 文件的规则，剩余部分保存到 非cn 文件
             updated_non_cn_data = subtract_rules(general_data, cn_data)
 
             # @!cn 文件已存在，增量更新.
-            non_cn_data = load_json(non_cn_path).get("rules", [])
+            non_cn_data = load_json(non_cn_path).get("rules",[])
             updated_non_cn_data = merge_rules(non_cn_data, updated_non_cn_data)
 
             # !cn 增量更新，cn不变
@@ -543,7 +537,7 @@ class RuleParser:
         # 只有 @cn 文件
         elif cn_files and not non_cn_files:
             cn_path = os.path.join(directory, cn_files[0])
-            cn_data = load_json(cn_path).get("rules", [])
+            cn_data = load_json(cn_path).get("rules",[])
 
             # 从全体文件中剔除 cn 文件的规则，剩余部分保存到 非cn 文件
             non_cn_data = subtract_rules(general_data, cn_data)
@@ -559,7 +553,7 @@ class RuleParser:
         # 只有 @!cn 文件
         elif non_cn_files and not cn_files:
             non_cn_path = os.path.join(directory, non_cn_files[0])
-            non_cn_data = load_json(non_cn_path).get("rules", [])
+            non_cn_data = load_json(non_cn_path).get("rules",[])
 
             # 从全体文件中剔除 非cn 文件的规则，更新 cn 文件
             cn_data = subtract_rules(general_data, non_cn_data)
@@ -581,13 +575,16 @@ class RuleParser:
         except OSError as e:
             logging.error(f"删除全体文件 {general_files[0]} 失败: {e}")
 
+
     def main(self):
-        #### 解析规则，生成sing-box规则集
-        source_directory = config.source_dir
-        output_directory = config.singbox_output_directory
+        source_directory = "./source"
+        output_directory = "./rule"
+
+        # 清空 output_directory
         if os.path.exists(output_directory):
             shutil.rmtree(output_directory)
         os.makedirs(output_directory)
+
         yaml_files = [f for f in os.listdir(source_directory) if f.endswith('.yaml')]
         for yaml_file in yaml_files:
             print('正在处理{}'.format(yaml_file))
@@ -599,20 +596,14 @@ class RuleParser:
                 self.parse_yaml_file(yaml_file_path, output_directory)
 
         # 生成 SRS 文件
-        self.process_category_files(output_directory)  # 拆分!cn规则 与 cn规则
+        self.process_category_files(output_directory) # 拆分!cn规则 与 cn规则
         json_files = [f for f in os.listdir(output_directory) if f.endswith('.json')]
-
         for json_file in json_files:
             json_file_path = os.path.join(output_directory, json_file)
             srs_path = json_file_path.replace(".json", ".srs")
             os.system(f"sing-box rule-set compile --output {srs_path} {json_file_path}")
             logging.debug(f"成功生成 SRS 文件 {srs_path}")
 
-        #### 调用工具函数 将 sing-box 规则转化为 Surge/Shadowrocket 规则
-        convert_json_to_surge(output_directory)
-        convert_json_to_clash(output_directory)
-
-        convert_yaml_to_mrs(config.clash_output_directory)
 
 if __name__ == "__main__":
     # 使用类的实例
