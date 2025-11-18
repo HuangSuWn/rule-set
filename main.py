@@ -375,7 +375,7 @@ class RuleParser:
         # 保存结果
         try:
             with open(output_file, 'w', encoding='utf-8') as file:
-                json.dump({"version": 1, "rules": final_rules}, file, ensure_ascii=False, indent=4)
+                json.dump({"version": 4, "rules": final_rules}, file, ensure_ascii=False, indent=4)
         except Exception as e:
             logging.error(f"保存 JSON 文件时出错: {e}")
 
@@ -457,7 +457,7 @@ class RuleParser:
             df = df.drop_duplicates().reset_index(drop=True)
             df['pattern'] = df['pattern'].replace(config.map_dict)
 
-            result_rules = {"version": 1, "rules": []}
+            result_rules = {"version": 4, "rules": []}
             domain_entries = []
             for pattern, addresses in df.groupby('pattern')['address'].apply(list).to_dict().items():
                 if pattern == 'domain_suffix':
