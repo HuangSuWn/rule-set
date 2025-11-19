@@ -2,4 +2,5 @@ geosite:
   - "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geosite/telegram.srs"
   
 geoip:
+  - "https://github.com/UptonEdward/geoip/raw/refs/heads/release/srs/telegram.srs"
   - "https://raw.github.com/DustinWin/ruleset_geodata/sing-box-ruleset/telegramip.srs"
