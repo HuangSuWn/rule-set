@@ -4,16 +4,16 @@
         {
             "domain_suffix": [
                 "booth.pm",
+                "pixiv.co.jp",
                 "pixiv-recommend.net",
-                "fanbox.cc",
                 "pixiv.org",
-                "pixiv.net",
+                "fanbox.cc",
                 "pixiv.help",
-                "pximg.net",
                 "pixivision.net",
                 "pixiv.me",
-                "pixiv.co.jp",
-                "ads-pixiv.net"
+                "ads-pixiv.net",
+                "pixiv.net",
+                "pximg.net"
             ]
         }
     ]
