@@ -3,3 +3,4 @@ geosite:
 
 geoip:
   - "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/sing/geo/geoip/google.srs"
+  - "https://github.com/UptonEdward/geoip/raw/refs/heads/release/srs/google.srs"
