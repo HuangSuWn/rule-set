@@ -24,11 +24,7 @@ geosite:
   - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/ChinaMax/ChinaMax_Domain.yaml"
   - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN_OCD_Domain.txt"
   - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/SteamCN/SteamCN_OCD_Domain.yaml"
-  - "https://raw.githubusercontent.com/vstar37/sing-box-ruleset/main/self-host/geosite-direct@amos.json"
-  - "https://raw.githubusercontent.com/Yuu518/sing-box-rules/rule_set/rule_set_site/geolocation-!cn@cn.srs"
   - "https://raw.githubusercontent.com/Yuu518/sing-box-rules/rule_set/rule_set_site/cn.srs"
-  - "https://raw.githubusercontent.com/UptonEdward/sing-geosite/rule-set/geosite-cn.srs"
-  - "https://raw.githubusercontent.com/UptonEdward/sing-geosite/rule-set/geosite-geolocation-!cn@cn.srs"
   - "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-cn.srs"
 
 geoip:
