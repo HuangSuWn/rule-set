@@ -4,16 +4,16 @@
         {
             "domain_suffix": [
                 "pixiv.co.jp",
-                "pixiv.help",
-                "pixiv.net",
                 "pixiv-recommend.net",
                 "pximg.net",
                 "fanbox.cc",
-                "pixiv.org",
                 "booth.pm",
+                "pixiv.org",
+                "pixiv.help",
                 "pixivision.net",
+                "pixiv.me",
                 "ads-pixiv.net",
-                "pixiv.me"
+                "pixiv.net"
             ]
         }
     ]
