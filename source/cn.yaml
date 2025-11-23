@@ -13,6 +13,7 @@ geosite:
   - "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs"
 
   # 第三方扩展规则
+  - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/fakeip-filter.srs"
   - "https://github.com/DustinWin/ruleset_geodata/raw/refs/heads/sing-box-ruleset/cn.srs"
   - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games-cn.srs"
   - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/private.srs"
