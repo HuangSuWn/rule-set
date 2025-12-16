@@ -61,22 +61,3 @@ jobs:
         ./v2dat/v2dat unpack geosite -o rule-set/rule/mosdns -f cn geosite.dat
         ./v2dat/v2dat unpack geosite -o rule-set/rule/mosdns -f gfw geosite.dat
         ./v2dat/v2dat unpack geosite -o rule-set/rule/mosdns -f 'geolocation-!cn' geosite.dat
-
-    - name: Set up git
-      run: |
-        set -e
-        git config user.email "${{ secrets.GIT_USER_EMAIL }}"
-        git config user.name "${{ secrets.GIT_USER_NAME }}"
-
-    - name: Commit and push
-      run: |
-        set -e
-        git add rule-set/rule/mosdns
-        if ! git diff --staged --quiet rule-set/rule/mosdns/; then
-          git commit -m "Automated geoip/site update"
-          git push
-        else
-          echo "No changes to commit."
-        fi
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
