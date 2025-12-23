@@ -37,5 +37,6 @@ geoip:
   - "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs"
 
   # 自定义直连规则
+  - "https://github.com/Yuu518/sing-box-rules/raw/refs/heads/rule_set/rule_set_ip/cn.srs"
   - "https://github.com/UptonEdward/geoip/raw/refs/heads/release/srs/cn.srs"
   - "https://ruleset.skk.moe/Clash/ip/china_ip.txt"
