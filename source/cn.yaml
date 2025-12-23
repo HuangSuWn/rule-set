@@ -19,7 +19,6 @@ geosite:
   - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/microsoft-cn.srs"
   - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN_OCD_Domain.txt"
   - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/SteamCN/SteamCN_OCD_Domain.yaml"
-  - "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-cn.srs"
   - "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/cn.srs"
   - "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/apple-cn.srs"
   - "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/games-cn.srs"
