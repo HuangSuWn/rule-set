@@ -60,8 +60,13 @@ jobs:
           PREFERRED_PREFIXES = {'domain:', 'full:', 'keyword:', 'regexp:'}
 
           for name, urls in rules_by_name.items():
-              output_file = mosdns_dir / f"{name}.txt"
-              rules_dict = {}
+              # 创建两个文件：一个用于域名规则，一个用于IP规则
+              domain_output_file = mosdns_dir / f"{name}.txt"
+              ip_output_file = mosdns_dir / f"{name}_ip.txt"
+              
+              domain_rules_dict = {}
+              ip_rules_dict = {}
+              ipv6_rules_dict = {}
 
               for i, url in enumerate(urls):
                   try:
@@ -76,9 +81,24 @@ jobs:
                       stripped_line = line.strip()
                       if not stripped_line or stripped_line.startswith('#'):
                           continue
-                      if 'IP-CIDR' in stripped_line or 'IP-CIDR6' in stripped_line:
+                      
+                      # 处理 IP-CIDR 规则
+                      if 'IP-CIDR,' in stripped_line:
+                          # 删除 "IP-CIDR," 前缀，保留剩余部分
+                          ip_rule = stripped_line.replace('IP-CIDR,', '').strip()
+                          if ip_rule:
+                              ip_rules_dict[ip_rule] = ip_rule
                           continue
-
+                      
+                      # 处理 IP-CIDR6 规则
+                      if 'IP-CIDR6,' in stripped_line:
+                          # 删除 "IP-CIDR6," 前缀，保留剩余部分
+                          ipv6_rule = stripped_line.replace('IP-CIDR6,', '').strip()
+                          if ipv6_rule:
+                              ipv6_rules_dict[ipv6_rule] = ipv6_rule
+                          continue
+                      
+                      # 处理域名规则（原有逻辑）
                       modified_line = stripped_line.replace('DOMAIN-SUFFIX,', 'domain:') \
                                                   .replace('DOMAIN,', 'full:') \
                                                   .replace('DOMAIN-KEYWORD,', 'keyword:') \
@@ -93,25 +113,43 @@ jobs:
                               core_content = modified_line[len(prefix):].strip()
                               break
 
-                      if core_content in rules_dict:
-                          existing_rule = rules_dict[core_content]
+                      if core_content in domain_rules_dict:
+                          existing_rule = domain_rules_dict[core_content]
                           if any(existing_rule.startswith(p) for p in PREFERRED_PREFIXES):
                               continue
                           if any(modified_line.startswith(p) for p in PREFERRED_PREFIXES):
-                              rules_dict[core_content] = modified_line
+                              domain_rules_dict[core_content] = modified_line
                           else:
-                              rules_dict[core_content] = modified_line
+                              domain_rules_dict[core_content] = modified_line
                       else:
-                          rules_dict[core_content] = modified_line
+                          domain_rules_dict[core_content] = modified_line
 
+              # 保存域名规则文件
               try:
-                  with open(output_file, 'w') as outfile:
-                      for rule_line in rules_dict.values():
+                  with open(domain_output_file, 'w') as outfile:
+                      for rule_line in domain_rules_dict.values():
                           outfile.write(rule_line + '\n')
-                  print(f"Updated {output_file} with {len(rules_dict)} rules")
+                  print(f"Updated {domain_output_file} with {len(domain_rules_dict)} domain rules")
               except IOError as e:
-                  print(f"Failed to write to {output_file}: {e}")
-                  exit(1)
+                  print(f"Failed to write to {domain_output_file}: {e}")
+              
+              # 保存IP规则文件（IPv4和IPv6合并）
+              try:
+                  if ip_rules_dict or ipv6_rules_dict:
+                      with open(ip_output_file, 'w') as outfile:
+                          # 先写入IPv4规则
+                          for rule_line in ip_rules_dict.values():
+                              outfile.write(rule_line + '\n')
+                          # 再写入IPv6规则
+                          for rule_line in ipv6_rules_dict.values():
+                              outfile.write(rule_line + '\n')
+                      print(f"Updated {ip_output_file} with {len(ip_rules_dict)} IPv4 rules and {len(ipv6_rules_dict)} IPv6 rules")
+                  else:
+                      # 如果没有IP规则，删除可能存在的空文件
+                      if ip_output_file.exists():
+                          ip_output_file.unlink()
+              except IOError as e:
+                  print(f"Failed to write to {ip_output_file}: {e}")
           EOF
 
       - name: Commit changes
