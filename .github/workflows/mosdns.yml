@@ -82,6 +82,11 @@ jobs:
                       if not stripped_line or stripped_line.startswith('#'):
                           continue
                       
+                      # 删除 PROCESS-NAME 规则（整条规则）
+                      if 'PROCESS-NAME,' in stripped_line:
+                          print(f"Skipping PROCESS-NAME rule: {stripped_line}")
+                          continue
+                      
                       # 处理 IP-CIDR 规则
                       if 'IP-CIDR,' in stripped_line:
                           # 删除 "IP-CIDR," 前缀，保留剩余部分
