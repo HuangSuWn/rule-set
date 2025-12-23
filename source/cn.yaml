@@ -31,7 +31,7 @@ geoip:
   
   # 基础 IP 规则
   - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/cnip.srs"
-  - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml"
+  # - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml"
   
   # Meta 官方规则集
   - "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs"
