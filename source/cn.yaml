@@ -34,7 +34,6 @@ geoip:
   
   # 基础 IP 规则
   - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/cnip.srs"
-  - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/privateip.srs"
   # - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/ChinaMax/ChinaMax_IP.yaml"
   - "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/ChinaIPs/ChinaIPs_IP.yaml"
   
