@@ -32,7 +32,6 @@ geosite:
   - "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/games-cn.srs"
   - "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/microsoft-cn.srs"
   - "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/fake-ip-filter.srs"
-  - "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/refs/heads/release/china-list.txt"
 
 geoip:
   # SagerNet 官方规则集
