@@ -1,0 +1,3 @@
+geosite:
+  - "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/fakeip-filter.srs"
+  - "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/fake-ip-filter.srs"
