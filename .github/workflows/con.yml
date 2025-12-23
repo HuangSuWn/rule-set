@@ -1,0 +1,234 @@
+name: Con
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  check-alibaba:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: "Setup sing-box"
+      env:
+        SING_BOX_DEB_URL: "https://github.com/SagerNet/sing-box/releases/download/v1.13.0-alpha.27/sing-box_1.13.0-alpha.27_linux_amd64.deb"
+      run: |
+        set -Eeuo pipefail
+        wget -O sing-box.deb $SING_BOX_DEB_URL
+        sudo dpkg -i sing-box.deb
+    - name: Set up Python3
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+    
+    - name: Check for alibaba in rule files
+      run: |
+        cat > check_alibaba.py << 'EOF'
+        import requests
+        import subprocess
+        import tempfile
+        import os
+        
+        # 定义要检查的链接列表
+        links = [
+            "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-apple@cn.srs",
+            "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs",
+            "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-media-cn.srs",
+            "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-google@cn.srs",
+            "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-microsoft@cn.srs",
+            "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-tencent@cn.srs",
+            "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-category-games@cn.srs",
+            "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs",
+            "https://github.com/DustinWin/ruleset_geodata/raw/refs/heads/sing-box-ruleset/cn.srs",
+            "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games-cn.srs",
+            "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/games-cn.srs",
+            "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/google-cn.srs",
+            "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/apple-cn.srs",
+            "https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/microsoft-cn.srs",
+            "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/Game/GameDownloadCN/GameDownloadCN_OCD_Domain.txt",
+            "https://raw.githubusercontent.com/peiyingyao/Rule-for-OCD/master/rule/Clash/SteamCN/SteamCN_OCD_Domain.yaml",
+            "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-cn.srs",
+            "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/cn.srs",
+            "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/apple-cn.srs",
+            "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/games-cn.srs",
+            "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/microsoft-cn.srs"
+        ]
+        
+        print("开始检查包含 'alibaba' 的规则文件...")
+        print("=" * 60)
+        
+        results = []
+        
+        for link in links:
+            try:
+                # 下载文件
+                response = requests.get(link, timeout=30)
+                response.raise_for_status()
+                
+                filename = link.split('/')[-1]
+                
+                # 根据文件类型处理
+                if link.endswith('.srs'):
+                    # 对于.srs文件，使用sing-box解析
+                    with tempfile.NamedTemporaryFile(suffix='.srs', delete=False) as f:
+                        f.write(response.content)
+                        temp_path = f.name
+                    
+                    try:
+                        # 使用sing-box解析.srs文件
+                        result = subprocess.run(
+                            ['sing-box', 'geosite', 'list', '--path', temp_path],
+                            capture_output=True,
+                            text=True,
+                            timeout=30
+                        )
+                        
+                        if result.returncode == 0:
+                            # 检查是否包含alibaba
+                            lines = result.stdout.split('\n')
+                            alibaba_lines = [line for line in lines if 'alibaba' in line.lower()]
+                            
+                            if alibaba_lines:
+                                results.append({
+                                    'file': filename,
+                                    'link': link,
+                                    'type': 'srs',
+                                    'alibaba_count': len(alibaba_lines),
+                                    'alibaba_lines': alibaba_lines[:10]  # 只显示前10个匹配项
+                                })
+                                print(f"✓ {filename} - 包含 {len(alibaba_lines)} 条alibaba相关规则")
+                            else:
+                                print(f"✗ {filename} - 不包含alibaba")
+                        else:
+                            print(f"⚠ {filename} - sing-box解析失败")
+                    except subprocess.TimeoutExpired:
+                        print(f"⚠ {filename} - 解析超时")
+                    finally:
+                        os.unlink(temp_path)
+                
+                elif link.endswith(('.txt', '.yaml', '.yml')):
+                    # 对于文本文件，直接检查
+                    content = response.text
+                    lines = content.split('\n')
+                    alibaba_lines = [line for line in lines if 'alibaba' in line.lower()]
+                    
+                    if alibaba_lines:
+                        results.append({
+                            'file': filename,
+                            'link': link,
+                            'type': 'text',
+                            'alibaba_count': len(alibaba_lines),
+                            'alibaba_lines': alibaba_lines[:10]
+                        })
+                        print(f"✓ {filename} - 包含 {len(alibaba_lines)} 条alibaba相关规则")
+                    else:
+                        print(f"✗ {filename} - 不包含alibaba")
+                
+            except requests.RequestException as e:
+                print(f"⚠ 下载失败: {filename} - {e}")
+            except Exception as e:
+                print(f"⚠ 处理错误: {filename} - {e}")
+        
+        print("\n" + "=" * 60)
+        print("检查结果汇总:")
+        print("=" * 60)
+        
+        if results:
+            print(f"发现 {len(results)} 个文件包含alibaba:")
+            for i, result in enumerate(results, 1):
+                print(f"\n{i}. {result['file']}")
+                print(f"   链接: {result['link']}")
+                print(f"   类型: {result['type']}")
+                print(f"   包含alibaba规则数: {result['alibaba_count']}")
+                print(f"   示例规则:")
+                for j, line in enumerate(result['alibaba_lines'][:5], 1):
+                    print(f"     {j}. {line}")
+        else:
+            print("没有找到包含alibaba的规则文件")
+        
+        # 将结果写入文件
+        with open('alibaba_check_results.txt', 'w') as f:
+            f.write("包含alibaba的规则文件检查结果\n")
+            f.write("=" * 60 + "\n\n")
+            if results:
+                f.write(f"发现 {len(results)} 个文件包含alibaba:\n\n")
+                for result in results:
+                    f.write(f"文件: {result['file']}\n")
+                    f.write(f"链接: {result['link']}\n")
+                    f.write(f"类型: {result['type']}\n")
+                    f.write(f"包含alibaba规则数: {result['alibaba_count']}\n")
+                    f.write("包含的alibaba相关规则:\n")
+                    for line in result['alibaba_lines']:
+                        f.write(f"  - {line}\n")
+                    f.write("\n" + "-" * 40 + "\n\n")
+            else:
+                f.write("没有找到包含alibaba的规则文件\n")
+        
+        EOF
+        python check_alibaba.py
+    
+    - name: Upload results
+      uses: actions/upload-artifact@v3
+      with:
+        name: alibaba-check-results
+        path: |
+          alibaba_check_results.txt
+        retention-days: 7
+  
+  build:
+    runs-on: ubuntu-latest
+    needs: check-alibaba  # 依赖check-alibaba作业
+    steps:
+    - uses: actions/checkout@v2
+    - name: "Setup sing-box"
+      env:
+        SING_BOX_DEB_URL: "https://github.com/SagerNet/sing-box/releases/download/v1.13.0-alpha.27/sing-box_1.13.0-alpha.27_linux_amd64.deb"
+      run: |
+          set -Eeuo pipefail
+          wget -O sing-box.deb $SING_BOX_DEB_URL
+          sudo dpkg -i sing-box.deb
+    - name: "Setup mihomo"
+      env:
+        MIHOMO_DEB_URL: "https://github.com/MetaCubeX/mihomo/releases/download/v1.19.16/mihomo-linux-amd64-v1-v1.19.16.deb"
+      run: |
+          set -Eeuo pipefail
+          wget -O mihomo.deb $MIHOMO_DEB_URL
+          sudo dpkg -i mihomo.deb
+    - name: Set up Python3
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas requests pyyaml
+
+    - name: Prepare log file
+      run: |
+        # 创建log.txt并设置读写权限
+        touch ./log.txt
+        chmod 666 ./log.txt
+
+    - name: Run script
+      run: python main.py
+    - name: Commit and push config.json
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+        
+        # 添加log.txt和规则文件
+        git add ./rule/
+        git add ./log.txt
+    
+        # 检查是否有文件被修改
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+          exit 0
+        else
+          git commit -m "Update rules"
+          git push
+        fi
