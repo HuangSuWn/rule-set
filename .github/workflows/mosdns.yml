@@ -33,8 +33,10 @@ jobs:
           rm -rf mosdns/*.txt
           python - <<EOF
           import os
+          import re
           import requests
-          from collections import OrderedDict, defaultdict
+          import ipaddress
+          from collections import defaultdict
           from pathlib import Path
 
           mosdns_dir = Path("mosdns")
@@ -59,16 +61,45 @@ jobs:
 
           PREFERRED_PREFIXES = {'domain:', 'full:', 'keyword:', 'regexp:'}
 
+          # IP 正则
+          ipv4_re = re.compile(r'^(\d{1,3}\.){3}\d{1,3}$')
+          ipv4_cidr_re = re.compile(r'^(\d{1,3}\.){3}\d{1,3}/\d{1,2}$')
+          ipv6_re = re.compile(r'^[0-9a-fA-F:]+$')
+          ipv6_cidr_re = re.compile(r'^[0-9a-fA-F:]+/\d{1,3}$')
+
+          def sort_ip_rules(ipv4_dict, ipv6_dict):
+              ipv4_list = []
+              ipv6_list = []
+
+              for ip in ipv4_dict.values():
+                  try:
+                      ipv4_list.append(ipaddress.ip_network(ip, strict=False))
+                  except ValueError:
+                      continue
+
+              for ip in ipv6_dict.values():
+                  try:
+                      ipv6_list.append(ipaddress.ip_network(ip, strict=False))
+                  except ValueError:
+                      continue
+
+              ipv4_list.sort()
+              ipv6_list.sort()
+
+              return (
+                  [str(ip) for ip in ipv4_list],
+                  [str(ip) for ip in ipv6_list]
+              )
+
           for name, urls in rules_by_name.items():
-              # 创建两个文件：一个用于域名规则，一个用于IP规则
               domain_output_file = mosdns_dir / f"{name}.txt"
               ip_output_file = mosdns_dir / f"{name}_ip.txt"
-              
+
               domain_rules_dict = {}
               ip_rules_dict = {}
               ipv6_rules_dict = {}
 
-              for i, url in enumerate(urls):
+              for url in urls:
                   try:
                       response = requests.get(url, timeout=15)
                       response.raise_for_status()
@@ -81,29 +112,34 @@ jobs:
                       stripped_line = line.strip()
                       if not stripped_line or stripped_line.startswith('#'):
                           continue
-                      
-                      # 删除 PROCESS-NAME 规则（整条规则）
+
                       if 'PROCESS-NAME,' in stripped_line:
                           print(f"Skipping PROCESS-NAME rule: {stripped_line}")
                           continue
-                      
-                      # 处理 IP-CIDR 规则
-                      if 'IP-CIDR,' in stripped_line:
-                          # 删除 "IP-CIDR," 前缀，保留剩余部分
-                          ip_rule = stripped_line.replace('IP-CIDR,', '').strip()
-                          if ip_rule:
-                              ip_rules_dict[ip_rule] = ip_rule
+
+                      # IP-CIDR / IP-CIDR6
+                      if stripped_line.startswith('IP-CIDR,'):
+                          parts = stripped_line.split(',', 2)
+                          if len(parts) >= 2:
+                              cidr = parts[1].strip()
+                              ip_rules_dict[cidr] = cidr
                           continue
-                      
-                      # 处理 IP-CIDR6 规则
-                      if 'IP-CIDR6,' in stripped_line:
-                          # 删除 "IP-CIDR6," 前缀，保留剩余部分
-                          ipv6_rule = stripped_line.replace('IP-CIDR6,', '').strip()
-                          if ipv6_rule:
-                              ipv6_rules_dict[ipv6_rule] = ipv6_rule
+                      if stripped_line.startswith('IP-CIDR6,'):
+                          parts = stripped_line.split(',', 2)
+                          if len(parts) >= 2:
+                              cidr6 = parts[1].strip()
+                              ipv6_rules_dict[cidr6] = cidr6
                           continue
-                      
-                      # 处理域名规则（原有逻辑）
+
+                      # 裸 IP / CIDR
+                      if ipv4_re.match(stripped_line) or ipv4_cidr_re.match(stripped_line):
+                          ip_rules_dict[stripped_line] = stripped_line
+                          continue
+                      if ipv6_re.match(stripped_line) or ipv6_cidr_re.match(stripped_line):
+                          ipv6_rules_dict[stripped_line] = stripped_line
+                          continue
+
+                      # 域名规则
                       modified_line = stripped_line.replace('DOMAIN-SUFFIX,', 'domain:') \
                                                   .replace('DOMAIN,', 'full:') \
                                                   .replace('DOMAIN-KEYWORD,', 'keyword:') \
@@ -129,7 +165,7 @@ jobs:
                       else:
                           domain_rules_dict[core_content] = modified_line
 
-              # 保存域名规则文件
+              # 保存域名规则
               try:
                   with open(domain_output_file, 'w') as outfile:
                       for rule_line in domain_rules_dict.values():
@@ -137,20 +173,18 @@ jobs:
                   print(f"Updated {domain_output_file} with {len(domain_rules_dict)} domain rules")
               except IOError as e:
                   print(f"Failed to write to {domain_output_file}: {e}")
-              
-              # 保存IP规则文件（IPv4和IPv6合并）
+
+              # 保存 IP 规则（排序）
               try:
                   if ip_rules_dict or ipv6_rules_dict:
+                      sorted_ipv4, sorted_ipv6 = sort_ip_rules(ip_rules_dict, ipv6_rules_dict)
                       with open(ip_output_file, 'w') as outfile:
-                          # 先写入IPv4规则
-                          for rule_line in ip_rules_dict.values():
-                              outfile.write(rule_line + '\n')
-                          # 再写入IPv6规则
-                          for rule_line in ipv6_rules_dict.values():
-                              outfile.write(rule_line + '\n')
-                      print(f"Updated {ip_output_file} with {len(ip_rules_dict)} IPv4 rules and {len(ipv6_rules_dict)} IPv6 rules")
+                          for ip in sorted_ipv4:
+                              outfile.write(ip + '\n')
+                          for ip in sorted_ipv6:
+                              outfile.write(ip + '\n')
+                      print(f"Updated {ip_output_file} with {len(sorted_ipv4)} IPv4 and {len(sorted_ipv6)} IPv6 rules")
                   else:
-                      # 如果没有IP规则，删除可能存在的空文件
                       if ip_output_file.exists():
                           ip_output_file.unlink()
               except IOError as e:
