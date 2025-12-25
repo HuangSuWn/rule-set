@@ -67,20 +67,31 @@ jobs:
           ipv6_re = re.compile(r'^[0-9a-fA-F:]+$')
           ipv6_cidr_re = re.compile(r'^[0-9a-fA-F:]+/\d{1,3}$')
 
+          # 安全排序函数
           def sort_ip_rules(ipv4_dict, ipv6_dict):
               ipv4_list = []
               ipv6_list = []
 
+              # IPv4 排序
               for ip in ipv4_dict.values():
                   try:
-                      ipv4_list.append(ipaddress.ip_network(ip, strict=False))
+                      net = ipaddress.ip_network(ip, strict=False)
+                      if isinstance(net, ipaddress.IPv4Network):
+                          ipv4_list.append(net)
+                      else:
+                          ipv6_list.append(net)
                   except ValueError:
                       continue
               ipv4_list.sort()
 
+              # IPv6 排序
               for ip in ipv6_dict.values():
                   try:
-                      ipv6_list.append(ipaddress.ip_network(ip, strict=False))
+                      net = ipaddress.ip_network(ip, strict=False)
+                      if isinstance(net, ipaddress.IPv6Network):
+                          ipv6_list.append(net)
+                      else:
+                          ipv4_list.append(net)
                   except ValueError:
                       continue
               ipv6_list.sort()
@@ -170,7 +181,7 @@ jobs:
               except IOError as e:
                   print(f"Failed to write to {domain_output_file}: {e}")
 
-              # 保存 IP 规则（排序）
+              # 保存 IP 规则（排序 + IPv4 → IPv6）
               try:
                   if ip_rules_dict or ipv6_rules_dict:
                       sorted_ipv4, sorted_ipv6 = sort_ip_rules(ip_rules_dict, ipv6_rules_dict)
