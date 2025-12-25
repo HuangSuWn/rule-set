@@ -6,4 +6,3 @@ geosite:
   # - "https://raw.githubusercontent.com/Yuu518/sing-box-rules/rule_set/rule_set_site/geolocation-!cn.srs"
   - "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-geolocation-!cn.srs"
   - "https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version4/proxy.srs"
-  - "https://github.com/SagerNet/sing-geosite/raw/refs/heads/rule-set/geosite-google@!cn.srs"
