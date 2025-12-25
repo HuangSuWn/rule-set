@@ -76,20 +76,16 @@ jobs:
                       ipv4_list.append(ipaddress.ip_network(ip, strict=False))
                   except ValueError:
                       continue
+              ipv4_list.sort()
 
               for ip in ipv6_dict.values():
                   try:
                       ipv6_list.append(ipaddress.ip_network(ip, strict=False))
                   except ValueError:
                       continue
-
-              ipv4_list.sort()
               ipv6_list.sort()
 
-              return (
-                  [str(ip) for ip in ipv4_list],
-                  [str(ip) for ip in ipv6_list]
-              )
+              return [str(ip) for ip in ipv4_list], [str(ip) for ip in ipv6_list]
 
           for name, urls in rules_by_name.items():
               domain_output_file = mosdns_dir / f"{name}.txt"
