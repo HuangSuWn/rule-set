@@ -1,2 +1,3 @@
 china https://github.com/HuangSuWn/rule-set/raw/refs/heads/main/rule/surge/geosite-cn.list
 china https://github.com/HuangSuWn/rule-set/raw/refs/heads/main/rule/surge/geoip-cn.list
+gfw https://github.com/HuangSuWn/rule-set/raw/refs/heads/main/rule/surge/geosite-proxy.list
