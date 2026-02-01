@@ -1,5 +1,5 @@
-2026-01-31 12:39:20,702 - INFO - youtube 规则整理完成:
-2026-01-31 12:39:20,703 - INFO - 类型: geosite
+2026-02-01 12:41:18,509 - INFO - youtube 规则整理完成:
+2026-02-01 12:41:18,509 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 177
 规则分析:
@@ -9,8 +9,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-01-31 12:39:21,356 - INFO - telegram 规则整理完成:
-2026-01-31 12:39:21,356 - INFO - 类型: geosite
+2026-02-01 12:41:19,314 - INFO - telegram 规则整理完成:
+2026-02-01 12:41:19,314 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 19
 规则分析:
@@ -20,7 +20,7 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-01-31 12:39:21,356 - INFO - 类型: geoip
+2026-02-01 12:41:19,314 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 12
 规则分析:
@@ -30,12 +30,31 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-01-31 12:39:21,545 - ERROR - 处理 SRS 文件 https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/fake-ip-filter.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmp4uqrpfa4/fake-ip-filter.json'
-2026-01-31 12:39:21,755 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/fakeip-filter.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmp8xggyw9y/fakeip-filter.json'
-2026-01-31 12:39:21,756 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:21,756 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:21,756 - INFO - fakeip-filter 规则整理完成:
-2026-01-31 12:39:21,756 - INFO - 类型: geosite
+2026-02-01 12:41:19,770 - INFO - fakeip-filter 规则整理完成:
+2026-02-01 12:41:19,770 - INFO - 类型: geosite
+domain 被过滤掉的条目数量: 9
+剩余规则总数: 148
+规则分析:
+  domain 条目数: 43
+  domain_suffix 条目数: 71
+  ip_cidr 条目数: 0
+  process_name 条目数: 0
+  domain_regex 条目数: 34
+--------------------------------------------------
+2026-02-01 12:41:20,414 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/privateip.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmppqhj1yf6/privateip.json'
+2026-02-01 12:41:20,415 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
+2026-02-01 12:41:20,415 - INFO - private 规则整理完成:
+2026-02-01 12:41:20,415 - INFO - 类型: geosite
+domain 被过滤掉的条目数量: 1
+剩余规则总数: 150
+规则分析:
+  domain 条目数: 15
+  domain_suffix 条目数: 133
+  ip_cidr 条目数: 0
+  process_name 条目数: 0
+  domain_regex 条目数: 2
+--------------------------------------------------
+2026-02-01 12:41:20,415 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 0
 规则分析:
@@ -45,87 +64,42 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-01-31 12:39:21,990 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/private.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpy0lj2wc_/private.json'
-2026-01-31 12:39:22,065 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:22,240 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/privateip.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpbmd38zrh/privateip.json'
-2026-01-31 12:39:22,240 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:22,240 - INFO - private 规则整理完成:
-2026-01-31 12:39:22,240 - INFO - 类型: geosite
-domain 被过滤掉的条目数量: 0
-剩余规则总数: 140
+2026-02-01 12:41:26,510 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/cnip.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpn9k4j472/cnip.json'
+2026-02-01 12:41:27,710 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
+2026-02-01 12:41:27,726 - INFO - cn 规则整理完成:
+2026-02-01 12:41:27,726 - INFO - 类型: geosite
+domain 被过滤掉的条目数量: 142
+剩余规则总数: 118321
 规则分析:
-  domain 条目数: 11
-  domain_suffix 条目数: 128
-  ip_cidr 条目数: 0
-  process_name 条目数: 0
-  domain_regex 条目数: 1
---------------------------------------------------
-2026-01-31 12:39:22,240 - INFO - 类型: geoip
-domain 被过滤掉的条目数量: 0
-剩余规则总数: 0
-规则分析:
-  domain 条目数: 0
-  domain_suffix 条目数: 0
-  ip_cidr 条目数: 0
-  process_name 条目数: 0
-  domain_regex 条目数: 0
---------------------------------------------------
-2026-01-31 12:39:22,511 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/google-cn.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmprj2rqrxk/google-cn.json'
-2026-01-31 12:39:23,356 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/games-cn.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpc8aytz0g/games-cn.json'
-2026-01-31 12:39:23,544 - ERROR - 处理 SRS 文件 https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/apple-cn.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpkvy9wf8r/apple-cn.json'
-2026-01-31 12:39:23,765 - ERROR - 处理 SRS 文件 https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/games-cn.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpvv37j1x0/games-cn.json'
-2026-01-31 12:39:23,965 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/microsoft-cn.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmp2j3za73v/microsoft-cn.json'
-2026-01-31 12:39:24,285 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset/games-cn.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpqu94fufs/games-cn.json'
-2026-01-31 12:39:24,585 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/apple-cn.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpub5pumw_/apple-cn.json'
-2026-01-31 12:39:25,016 - ERROR - 处理 SRS 文件 https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/microsoft-cn.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmp3_d2bydj/microsoft-cn.json'
-2026-01-31 12:39:25,193 - ERROR - 处理 SRS 文件 https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version1/cn.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpitl58ot5/cn.json'
-2026-01-31 12:39:25,207 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:25,215 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:25,215 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:25,215 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:25,215 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:25,215 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:25,215 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:25,215 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:25,215 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:26,481 - ERROR - 处理 SRS 文件 https://github.com/DustinWin/ruleset_geodata/releases/download/sing-box-ruleset-compatible/cnip.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpcuz2jh17/cnip.json'
-2026-01-31 12:39:28,032 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:28,049 - INFO - cn 规则整理完成:
-2026-01-31 12:39:28,049 - INFO - 类型: geosite
-domain 被过滤掉的条目数量: 134
-剩余规则总数: 117458
-规则分析:
-  domain 条目数: 507
-  domain_suffix 条目数: 116925
+  domain 条目数: 509
+  domain_suffix 条目数: 117786
   ip_cidr 条目数: 0
   process_name 条目数: 0
   domain_regex 条目数: 26
 --------------------------------------------------
-2026-01-31 12:39:28,049 - INFO - 类型: geoip
+2026-02-01 12:41:27,726 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
-剩余规则总数: 33475
+剩余规则总数: 33462
 规则分析:
   domain 条目数: 0
   domain_suffix 条目数: 0
-  ip_cidr 条目数: 33475
+  ip_cidr 条目数: 33462
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-01-31 12:39:28,254 - ERROR - 处理 SRS 文件 https://github.com/QuixoticHeart/rule-set/raw/refs/heads/ruleset/singbox/version4/proxy.srs 时出错: [Errno 2] No such file or directory: '/tmp/tmpp7e3xc1s/proxy.json'
-2026-01-31 12:39:28,254 - ERROR - 解析 JSON 数据时出错: 'NoneType' object has no attribute 'get'
-2026-01-31 12:39:28,254 - INFO - proxy 规则整理完成:
-2026-01-31 12:39:28,254 - INFO - 类型: geosite
+2026-02-01 12:41:28,279 - INFO - proxy 规则整理完成:
+2026-02-01 12:41:28,279 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
-剩余规则总数: 0
+剩余规则总数: 27479
 规则分析:
-  domain 条目数: 0
-  domain_suffix 条目数: 0
-  ip_cidr 条目数: 0
+  domain 条目数: 107
+  domain_suffix 条目数: 27127
+  ip_cidr 条目数: 116
   process_name 条目数: 0
-  domain_regex 条目数: 0
+  domain_regex 条目数: 129
 --------------------------------------------------
-2026-01-31 12:39:28,885 - INFO - google 规则整理完成:
-2026-01-31 12:39:28,885 - INFO - 类型: geosite
+2026-02-01 12:41:29,042 - INFO - google 规则整理完成:
+2026-02-01 12:41:29,042 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 209
 剩余规则总数: 867
 规则分析:
@@ -135,7 +109,7 @@ domain 被过滤掉的条目数量: 209
   process_name 条目数: 0
   domain_regex 条目数: 3
 --------------------------------------------------
-2026-01-31 12:39:28,885 - INFO - 类型: geoip
+2026-02-01 12:41:29,042 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 5210
 规则分析:
@@ -145,8 +119,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-01-31 12:39:29,093 - INFO - pixiv 规则整理完成:
-2026-01-31 12:39:29,093 - INFO - 类型: geosite
+2026-02-01 12:41:29,305 - INFO - pixiv 规则整理完成:
+2026-02-01 12:41:29,305 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 11
 规则分析:
@@ -156,27 +130,27 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-01-31 12:39:30,181 - INFO - 转换完成: ./rule/singbox/geoip-cn.json → ./rule/surge/geoip-cn.list, ./rule/shadowrocket/geoip-cn.list
-2026-01-31 12:39:30,183 - INFO - 转换完成: ./rule/singbox/geosite-pixiv.json → ./rule/surge/geosite-pixiv.list, ./rule/shadowrocket/geosite-pixiv.list
-2026-01-31 12:39:30,183 - INFO - 转换完成: ./rule/singbox/geosite-google.json → ./rule/surge/geosite-google.list, ./rule/shadowrocket/geosite-google.list
-2026-01-31 12:39:30,232 - INFO - 转换完成: ./rule/singbox/geosite-cn.json → ./rule/surge/geosite-cn.list, ./rule/shadowrocket/geosite-cn.list
-2026-01-31 12:39:30,238 - INFO - 转换完成: ./rule/singbox/geoip-google.json → ./rule/surge/geoip-google.list, ./rule/shadowrocket/geoip-google.list
-2026-01-31 12:39:30,239 - INFO - 转换完成: ./rule/singbox/geosite-telegram.json → ./rule/surge/geosite-telegram.list, ./rule/shadowrocket/geosite-telegram.list
-2026-01-31 12:39:30,239 - INFO - 转换完成: ./rule/singbox/geosite-proxy.json → ./rule/surge/geosite-proxy.list, ./rule/shadowrocket/geosite-proxy.list
-2026-01-31 12:39:30,240 - INFO - 转换完成: ./rule/singbox/geosite-fakeip-filter.json → ./rule/surge/geosite-fakeip-filter.list, ./rule/shadowrocket/geosite-fakeip-filter.list
-2026-01-31 12:39:30,240 - INFO - 转换完成: ./rule/singbox/geosite-private.json → ./rule/surge/geosite-private.list, ./rule/shadowrocket/geosite-private.list
-2026-01-31 12:39:30,240 - INFO - 转换完成: ./rule/singbox/geosite-youtube.json → ./rule/surge/geosite-youtube.list, ./rule/shadowrocket/geosite-youtube.list
-2026-01-31 12:39:30,240 - INFO - 转换完成: ./rule/singbox/geoip-private.json → ./rule/surge/geoip-private.list, ./rule/shadowrocket/geoip-private.list
-2026-01-31 12:39:30,241 - INFO - 转换完成: ./rule/singbox/geoip-telegram.json → ./rule/surge/geoip-telegram.list, ./rule/shadowrocket/geoip-telegram.list
-2026-01-31 12:39:30,334 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-private.mrs
-2026-01-31 12:39:30,585 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-cn.mrs
-2026-01-31 12:39:30,596 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-telegram.mrs
-2026-01-31 12:39:30,606 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-telegram.mrs
-2026-01-31 12:39:30,626 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-google.mrs
-2026-01-31 12:39:30,636 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-fakeip-filter.mrs
-2026-01-31 12:39:31,761 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-cn.mrs
-2026-01-31 12:39:31,771 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-private.mrs
-2026-01-31 12:39:31,782 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-youtube.mrs
-2026-01-31 12:39:31,831 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-google.mrs
-2026-01-31 12:39:31,842 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-pixiv.mrs
-2026-01-31 12:39:31,852 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-proxy.mrs
+2026-02-01 12:41:30,479 - INFO - 转换完成: ./rule/singbox/geoip-cn.json → ./rule/surge/geoip-cn.list, ./rule/shadowrocket/geoip-cn.list
+2026-02-01 12:41:30,480 - INFO - 转换完成: ./rule/singbox/geosite-pixiv.json → ./rule/surge/geosite-pixiv.list, ./rule/shadowrocket/geosite-pixiv.list
+2026-02-01 12:41:30,481 - INFO - 转换完成: ./rule/singbox/geosite-google.json → ./rule/surge/geosite-google.list, ./rule/shadowrocket/geosite-google.list
+2026-02-01 12:41:30,528 - INFO - 转换完成: ./rule/singbox/geosite-cn.json → ./rule/surge/geosite-cn.list, ./rule/shadowrocket/geosite-cn.list
+2026-02-01 12:41:30,535 - INFO - 转换完成: ./rule/singbox/geoip-google.json → ./rule/surge/geoip-google.list, ./rule/shadowrocket/geoip-google.list
+2026-02-01 12:41:30,535 - INFO - 转换完成: ./rule/singbox/geosite-telegram.json → ./rule/surge/geosite-telegram.list, ./rule/shadowrocket/geosite-telegram.list
+2026-02-01 12:41:30,547 - INFO - 转换完成: ./rule/singbox/geosite-proxy.json → ./rule/surge/geosite-proxy.list, ./rule/shadowrocket/geosite-proxy.list
+2026-02-01 12:41:30,548 - INFO - 转换完成: ./rule/singbox/geosite-fakeip-filter.json → ./rule/surge/geosite-fakeip-filter.list, ./rule/shadowrocket/geosite-fakeip-filter.list
+2026-02-01 12:41:30,548 - INFO - 转换完成: ./rule/singbox/geosite-private.json → ./rule/surge/geosite-private.list, ./rule/shadowrocket/geosite-private.list
+2026-02-01 12:41:30,548 - INFO - 转换完成: ./rule/singbox/geosite-youtube.json → ./rule/surge/geosite-youtube.list, ./rule/shadowrocket/geosite-youtube.list
+2026-02-01 12:41:30,548 - INFO - 转换完成: ./rule/singbox/geoip-private.json → ./rule/surge/geoip-private.list, ./rule/shadowrocket/geoip-private.list
+2026-02-01 12:41:30,548 - INFO - 转换完成: ./rule/singbox/geoip-telegram.json → ./rule/surge/geoip-telegram.list, ./rule/shadowrocket/geoip-telegram.list
+2026-02-01 12:41:30,656 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-private.mrs
+2026-02-01 12:41:30,896 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-cn.mrs
+2026-02-01 12:41:30,906 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-telegram.mrs
+2026-02-01 12:41:30,914 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-telegram.mrs
+2026-02-01 12:41:30,933 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-google.mrs
+2026-02-01 12:41:30,946 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-fakeip-filter.mrs
+2026-02-01 12:41:32,133 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-cn.mrs
+2026-02-01 12:41:32,144 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-private.mrs
+2026-02-01 12:41:32,156 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-youtube.mrs
+2026-02-01 12:41:32,204 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-google.mrs
+2026-02-01 12:41:32,213 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-pixiv.mrs
+2026-02-01 12:41:32,479 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-proxy.mrs
