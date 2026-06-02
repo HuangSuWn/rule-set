@@ -1,5 +1,5 @@
-2026-06-01 17:30:48,588 - INFO - pixiv 规则整理完成:
-2026-06-01 17:30:48,588 - INFO - 类型: geosite
+2026-06-02 16:15:17,660 - INFO - pixiv 规则整理完成:
+2026-06-02 16:15:17,660 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 11
 规则分析:
@@ -9,40 +9,40 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-06-01 17:30:49,223 - INFO - proxy 规则整理完成:
-2026-06-01 17:30:49,223 - INFO - 类型: geosite
+2026-06-02 16:15:18,669 - INFO - proxy 规则整理完成:
+2026-06-02 16:15:18,669 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
-剩余规则总数: 29227
+剩余规则总数: 29229
 规则分析:
   domain 条目数: 115
-  domain_suffix 条目数: 28861
+  domain_suffix 条目数: 28863
   ip_cidr 条目数: 116
   process_name 条目数: 0
   domain_regex 条目数: 135
 --------------------------------------------------
-2026-06-01 17:30:56,433 - INFO - cn 规则整理完成:
-2026-06-01 17:30:56,433 - INFO - 类型: geosite
+2026-06-02 16:15:31,681 - INFO - cn 规则整理完成:
+2026-06-02 16:15:31,681 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 143
-剩余规则总数: 116402
+剩余规则总数: 116407
 规则分析:
   domain 条目数: 480
-  domain_suffix 条目数: 115910
+  domain_suffix 条目数: 115915
   ip_cidr 条目数: 0
   process_name 条目数: 0
   domain_regex 条目数: 12
 --------------------------------------------------
-2026-06-01 17:30:56,433 - INFO - 类型: geoip
+2026-06-02 16:15:31,681 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
-剩余规则总数: 32493
+剩余规则总数: 32495
 规则分析:
   domain 条目数: 0
   domain_suffix 条目数: 0
-  ip_cidr 条目数: 32493
+  ip_cidr 条目数: 32495
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-06-01 17:30:56,898 - INFO - private 规则整理完成:
-2026-06-01 17:30:56,898 - INFO - 类型: geosite
+2026-06-02 16:15:33,205 - INFO - private 规则整理完成:
+2026-06-02 16:15:33,205 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 1
 剩余规则总数: 148
 规则分析:
@@ -52,7 +52,7 @@ domain 被过滤掉的条目数量: 1
   process_name 条目数: 0
   domain_regex 条目数: 2
 --------------------------------------------------
-2026-06-01 17:30:56,898 - INFO - 类型: geoip
+2026-06-02 16:15:33,205 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 18
 规则分析:
@@ -62,8 +62,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-06-01 17:30:57,208 - INFO - youtube 规则整理完成:
-2026-06-01 17:30:57,208 - INFO - 类型: geosite
+2026-06-02 16:15:33,665 - INFO - youtube 规则整理完成:
+2026-06-02 16:15:33,665 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 178
 规则分析:
@@ -73,8 +73,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-06-01 17:30:57,922 - INFO - telegram 规则整理完成:
-2026-06-01 17:30:57,922 - INFO - 类型: geosite
+2026-06-02 16:15:35,457 - INFO - telegram 规则整理完成:
+2026-06-02 16:15:35,457 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 20
 规则分析:
@@ -84,7 +84,7 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-06-01 17:30:57,922 - INFO - 类型: geoip
+2026-06-02 16:15:35,457 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 12
 规则分析:
@@ -94,8 +94,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-06-01 17:30:58,139 - INFO - github 规则整理完成:
-2026-06-01 17:30:58,139 - INFO - 类型: geosite
+2026-06-02 16:15:36,075 - INFO - github 规则整理完成:
+2026-06-02 16:15:36,075 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 4
 剩余规则总数: 57
 规则分析:
@@ -105,8 +105,8 @@ domain 被过滤掉的条目数量: 4
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-06-01 17:30:58,877 - INFO - google 规则整理完成:
-2026-06-01 17:30:58,878 - INFO - 类型: geosite
+2026-06-02 16:15:37,645 - INFO - google 规则整理完成:
+2026-06-02 16:15:37,645 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 186
 剩余规则总数: 859
 规则分析:
@@ -116,7 +116,7 @@ domain 被过滤掉的条目数量: 186
   process_name 条目数: 0
   domain_regex 条目数: 2
 --------------------------------------------------
-2026-06-01 17:30:58,878 - INFO - 类型: geoip
+2026-06-02 16:15:37,645 - INFO - 类型: geoip
 domain 被过滤掉的条目数量: 0
 剩余规则总数: 6652
 规则分析:
@@ -126,8 +126,8 @@ domain 被过滤掉的条目数量: 0
   process_name 条目数: 0
   domain_regex 条目数: 0
 --------------------------------------------------
-2026-06-01 17:30:59,404 - INFO - fakeip-filter 规则整理完成:
-2026-06-01 17:30:59,404 - INFO - 类型: geosite
+2026-06-02 16:15:38,626 - INFO - fakeip-filter 规则整理完成:
+2026-06-02 16:15:38,626 - INFO - 类型: geosite
 domain 被过滤掉的条目数量: 9
 剩余规则总数: 148
 规则分析:
@@ -137,29 +137,29 @@ domain 被过滤掉的条目数量: 9
   process_name 条目数: 0
   domain_regex 条目数: 34
 --------------------------------------------------
-2026-06-01 17:31:00,615 - INFO - 转换完成: ./rule/singbox/geoip-google.json → ./rule/surge/geoip-google.list, ./rule/shadowrocket/geoip-google.list
-2026-06-01 17:31:00,616 - INFO - 转换完成: ./rule/singbox/geosite-pixiv.json → ./rule/surge/geosite-pixiv.list, ./rule/shadowrocket/geosite-pixiv.list
-2026-06-01 17:31:00,616 - INFO - 转换完成: ./rule/singbox/geoip-private.json → ./rule/surge/geoip-private.list, ./rule/shadowrocket/geoip-private.list
-2026-06-01 17:31:00,616 - INFO - 转换完成: ./rule/singbox/geosite-github.json → ./rule/surge/geosite-github.list, ./rule/shadowrocket/geosite-github.list
-2026-06-01 17:31:00,629 - INFO - 转换完成: ./rule/singbox/geoip-cn.json → ./rule/surge/geoip-cn.list, ./rule/shadowrocket/geoip-cn.list
-2026-06-01 17:31:00,674 - INFO - 转换完成: ./rule/singbox/geosite-cn.json → ./rule/surge/geosite-cn.list, ./rule/shadowrocket/geosite-cn.list
-2026-06-01 17:31:00,679 - INFO - 转换完成: ./rule/singbox/geosite-private.json → ./rule/surge/geosite-private.list, ./rule/shadowrocket/geosite-private.list
-2026-06-01 17:31:00,679 - INFO - 转换完成: ./rule/singbox/geosite-telegram.json → ./rule/surge/geosite-telegram.list, ./rule/shadowrocket/geosite-telegram.list
-2026-06-01 17:31:00,679 - INFO - 转换完成: ./rule/singbox/geosite-fakeip-filter.json → ./rule/surge/geosite-fakeip-filter.list, ./rule/shadowrocket/geosite-fakeip-filter.list
-2026-06-01 17:31:00,691 - INFO - 转换完成: ./rule/singbox/geosite-proxy.json → ./rule/surge/geosite-proxy.list, ./rule/shadowrocket/geosite-proxy.list
-2026-06-01 17:31:00,693 - INFO - 转换完成: ./rule/singbox/geosite-google.json → ./rule/surge/geosite-google.list, ./rule/shadowrocket/geosite-google.list
-2026-06-01 17:31:00,693 - INFO - 转换完成: ./rule/singbox/geoip-telegram.json → ./rule/surge/geoip-telegram.list, ./rule/shadowrocket/geoip-telegram.list
-2026-06-01 17:31:00,693 - INFO - 转换完成: ./rule/singbox/geosite-youtube.json → ./rule/surge/geosite-youtube.list, ./rule/shadowrocket/geosite-youtube.list
-2026-06-01 17:31:00,795 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-github.mrs
-2026-06-01 17:31:01,029 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-cn.mrs
-2026-06-01 17:31:01,038 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-telegram.mrs
-2026-06-01 17:31:01,049 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-private.mrs
-2026-06-01 17:31:01,104 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-google.mrs
-2026-06-01 17:31:01,114 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-private.mrs
-2026-06-01 17:31:01,398 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-proxy.mrs
-2026-06-01 17:31:01,415 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-google.mrs
-2026-06-01 17:31:01,424 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-telegram.mrs
-2026-06-01 17:31:01,435 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-youtube.mrs
-2026-06-01 17:31:02,579 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-cn.mrs
-2026-06-01 17:31:02,589 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-pixiv.mrs
-2026-06-01 17:31:02,600 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-fakeip-filter.mrs
+2026-06-02 16:15:39,846 - INFO - 转换完成: ./rule/singbox/geoip-google.json → ./rule/surge/geoip-google.list, ./rule/shadowrocket/geoip-google.list
+2026-06-02 16:15:39,846 - INFO - 转换完成: ./rule/singbox/geosite-pixiv.json → ./rule/surge/geosite-pixiv.list, ./rule/shadowrocket/geosite-pixiv.list
+2026-06-02 16:15:39,846 - INFO - 转换完成: ./rule/singbox/geoip-private.json → ./rule/surge/geoip-private.list, ./rule/shadowrocket/geoip-private.list
+2026-06-02 16:15:39,847 - INFO - 转换完成: ./rule/singbox/geosite-github.json → ./rule/surge/geosite-github.list, ./rule/shadowrocket/geosite-github.list
+2026-06-02 16:15:39,860 - INFO - 转换完成: ./rule/singbox/geoip-cn.json → ./rule/surge/geoip-cn.list, ./rule/shadowrocket/geoip-cn.list
+2026-06-02 16:15:39,905 - INFO - 转换完成: ./rule/singbox/geosite-cn.json → ./rule/surge/geosite-cn.list, ./rule/shadowrocket/geosite-cn.list
+2026-06-02 16:15:39,909 - INFO - 转换完成: ./rule/singbox/geosite-private.json → ./rule/surge/geosite-private.list, ./rule/shadowrocket/geosite-private.list
+2026-06-02 16:15:39,909 - INFO - 转换完成: ./rule/singbox/geosite-telegram.json → ./rule/surge/geosite-telegram.list, ./rule/shadowrocket/geosite-telegram.list
+2026-06-02 16:15:39,909 - INFO - 转换完成: ./rule/singbox/geosite-fakeip-filter.json → ./rule/surge/geosite-fakeip-filter.list, ./rule/shadowrocket/geosite-fakeip-filter.list
+2026-06-02 16:15:39,921 - INFO - 转换完成: ./rule/singbox/geosite-proxy.json → ./rule/surge/geosite-proxy.list, ./rule/shadowrocket/geosite-proxy.list
+2026-06-02 16:15:39,923 - INFO - 转换完成: ./rule/singbox/geosite-google.json → ./rule/surge/geosite-google.list, ./rule/shadowrocket/geosite-google.list
+2026-06-02 16:15:39,923 - INFO - 转换完成: ./rule/singbox/geoip-telegram.json → ./rule/surge/geoip-telegram.list, ./rule/shadowrocket/geoip-telegram.list
+2026-06-02 16:15:39,923 - INFO - 转换完成: ./rule/singbox/geosite-youtube.json → ./rule/surge/geosite-youtube.list, ./rule/shadowrocket/geosite-youtube.list
+2026-06-02 16:15:40,027 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-github.mrs
+2026-06-02 16:15:40,278 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-cn.mrs
+2026-06-02 16:15:40,287 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-telegram.mrs
+2026-06-02 16:15:40,298 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-private.mrs
+2026-06-02 16:15:40,353 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-google.mrs
+2026-06-02 16:15:40,362 - INFO - 成功生成 MRS 文件: ./rule/clash/geoip-private.mrs
+2026-06-02 16:15:40,651 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-proxy.mrs
+2026-06-02 16:15:40,669 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-google.mrs
+2026-06-02 16:15:40,679 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-telegram.mrs
+2026-06-02 16:15:40,690 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-youtube.mrs
+2026-06-02 16:15:41,887 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-cn.mrs
+2026-06-02 16:15:41,897 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-pixiv.mrs
+2026-06-02 16:15:41,907 - INFO - 成功生成 MRS 文件: ./rule/clash/geosite-fakeip-filter.mrs
