@@ -3,27 +3,27 @@
     "rules": [
         {
             "domain_suffix": [
-                "telegram.dog",
-                "telegram.org",
-                "telegram-cdn.org",
-                "contest.com",
-                "telega.one",
-                "comments.app",
-                "tdesktop.com",
-                "fragment.com",
-                "cdn-telegram.org",
-                "tx.me",
-                "toncenter.com",
-                "ton.org",
-                "telesco.pe",
-                "telegram.space",
-                "tg.dev",
                 "telegra.ph",
-                "usercontent.dev",
-                "t.me",
                 "telegram.me",
+                "telega.one",
+                "tg.dev",
+                "tx.me",
+                "ton.org",
+                "toncenter.com",
+                "t.me",
+                "quiz.directory",
+                "comments.app",
+                "contest.com",
+                "telegram.org",
+                "fragment.com",
                 "graph.org",
-                "quiz.directory"
+                "usercontent.dev",
+                "telesco.pe",
+                "telegram-cdn.org",
+                "tdesktop.com",
+                "telegram.space",
+                "cdn-telegram.org",
+                "telegram.dog"
             ]
         }
     ]
