@@ -3,17 +3,17 @@
     "rules": [
         {
             "domain_suffix": [
-                "booth.pm",
-                "pixiv.me",
-                "pixiv.help",
                 "fanbox.cc",
+                "pixiv.co.jp",
+                "pixiv.help",
                 "pixiv.net",
                 "pixiv-recommend.net",
-                "pixivision.net",
+                "booth.pm",
                 "ads-pixiv.net",
-                "pximg.net",
                 "pixiv.org",
-                "pixiv.co.jp"
+                "pixivision.net",
+                "pximg.net",
+                "pixiv.me"
             ]
         }
     ]
